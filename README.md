@@ -12,7 +12,6 @@ En este repositorio se documenta todo el ciclo de vida del desarrollo:
 El desarrollo y seguimiento de tareas se realiza mediante un tablero **Kanban** en Trello:
 👉 [**Ver Tablero de Trello**](https://trello.com/b/bGED0kAU/fullstack-project)
 
-
 ## 🚀 Tecnologías Principales
 - **Frontend:** React + Vite + TypeScript.
 - **Backend:** Node.js + Express (Arquitectura por capas).
@@ -24,3 +23,4 @@ El proyecto sigue una estructura de **API REST** con un cliente tipado en el fro
 
 ## ⚙️ Instalación y Uso
 *(Próximamente...)*
+
