@@ -1,4 +1,4 @@
-# Idea del Proyecto: NoName
+# Idea del Proyecto: Frame & Page
 
 ## 1. Visión General
 Una plataforma centralizada para catalogar y compartir libros, películas y series en un entorno privado. Resuelve la fragmentación de tener que usar múltiples apps al unificar todo el contenido audiovisual y de lectura en un solo lugar.

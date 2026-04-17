@@ -1,4 +1,4 @@
-# Fullstack Project - [Nombre pendiente]
+# Fullstack Project - [Frame & Page]
 
 Este es un proyecto profesional desarrollado con **React**, **TypeScript**, **Tailwind CSS** y una **API propia**. La aplicación permite catalogar y compartir libros, películas y series en un entorno privado entre amigos.
 
