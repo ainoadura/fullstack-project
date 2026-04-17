@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- PALETA LIGHT (Base) --- */
+  --color-bg-light: #F9FAFB;      /* Gris casi blanco muy limpio */
+  --color-card-light: #FFFFFF;    /* Blanco puro para las tarjetas */
+  --color-text-light: #1F2937;    /* Gris muy oscuro para lectura */
+  
+  /* Versiones claras de tus colores para detalles */
+  --color-primary-light: #702459; /* Un punto más vibrante que el vino */
+  --color-accent-light: #3D8B96;  /* Un teal más vivo */
+  --color-muted-light: #94A696;   /* Un verde más suave */
+
+  /* --- PALETA DARK (Tus colores originales) --- */
+  --color-bg-dark: #3B4058;       /* Tu Color 2 */
+  --color-card-dark: #2A2E42;     /* Un tono más profundo para las tarjetas */
+  --color-text-dark: #F3F4F6;     /* Blanco roto para no deslumbrar */
+  
+  --color-primary: #4B1139;       /* Tu Color 1 - Vino */
+  --color-accent: #2A6E78;        /* Tu Color 3 - Teal */
+  --color-muted: #7A907C;         /* Tu Color 4 - Verde */
+  --color-gold: #C9B180;          /* Tu Color 5 - Dorado */
+}

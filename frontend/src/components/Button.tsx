@@ -8,15 +8,20 @@ export const Button = ({ children, variant = 'primary', className = '', ...props
   const baseStyles = "px-4 py-2 rounded-lg font-medium transition-all active:scale-95 shadow-sm cursor-pointer";
   
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700",
-    secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
-    danger: "bg-red-500 text-white hover:bg-red-600"
+    /* Primary: Tu Color 1 (Vino) en modo claro / Color 5 (Dorado) en modo oscuro */
+    primary: "bg-primary dark:bg-gold text-white dark:text-bg-dark hover:opacity-90",
+    
+    /* Secondary: Tu Color 2 (Azul Grisáceo) suave */
+    secondary: "bg-gray-200 dark:bg-secondary text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:opacity-80",
+    
+    /* Danger: Rojo estándar pero suavizado para tu paleta */
+    danger: "bg-red-600 text-white hover:bg-red-700"
   };
 
   return (
     <button 
       className={`${baseStyles} ${variants[variant]} ${className}`} 
-      {...props} // Aquí se pasan automáticamente el onClick, type, etc.
+      {...props}
     >
       {children}
     </button>

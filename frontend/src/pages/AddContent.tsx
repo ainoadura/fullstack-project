@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../components/Button';
+import { InputField } from '../components/InputField'; // Importamos tu componente tipado
 
 type MediaType = 'BOOK' | 'MOVIE' | 'TV_SERIES';
 
@@ -12,7 +13,6 @@ interface FormData {
 }
 
 export const AddContent = () => {
-  // 1. Estado local para el formulario
   const [formData, setFormData] = useState<FormData>({
     title: '',
     type: 'BOOK',
@@ -21,7 +21,6 @@ export const AddContent = () => {
     review: ''
   });
 
-  // 2. Manejador de eventos para los inputs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -30,26 +29,26 @@ export const AddContent = () => {
     });
   };
 
-  // 3. Manejador del envío del formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Saving new content:', formData);
-    alert('Content saved to console! 🚀');
+    alert(`Success! "${formData.title}" has been saved. 🚀`);
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-white mt-10 rounded-2xl shadow-xl border border-gray-100">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Add New Content</h2>
+    /* bg-card-light y dark:bg-card-dark (Color 2) */
+    <div className="max-w-2xl mx-auto p-8 bg-card-light dark:bg-card-dark mt-10 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 transition-colors">
+      <h2 className="text-3xl font-bold text-text-light dark:text-text-dark mb-6">Add New Content</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Category Selector */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+          <label className="block text-sm font-semibold text-text-light dark:text-text-dark mb-2">Category</label>
           <select 
             name="type"
             value={formData.type}
             onChange={handleChange}
-            className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark focus:ring-2 focus:ring-primary dark:focus:ring-gold outline-none transition-all"
           >
             <option value="BOOK">📖 Book</option>
             <option value="MOVIE">🎬 Movie</option>
@@ -57,65 +56,56 @@ export const AddContent = () => {
           </select>
         </div>
 
-        {/* Title */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
-          <input 
-            type="text" 
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            placeholder="Enter title..." 
-            className="w-full p-3 rounded-lg border border-gray-300 outline-none focus:border-blue-500" 
-            required
-          />
-        </div>
+        {/* Title usando tu InputField */}
+        <InputField 
+          label="Title"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          placeholder="Enter title..."
+          required
+        />
 
-        {/* Dynamic Label based on Type */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
-            {formData.type === 'BOOK' ? 'Author' : 'Director'}
-          </label>
-          <input 
-            type="text" 
-            name="authorOrDirector"
-            value={formData.authorOrDirector}
-            onChange={handleChange}
-            placeholder={formData.type === 'BOOK' ? 'Author name' : 'Director name'} 
-            className="w-full p-3 rounded-lg border border-gray-300" 
-          />
-        </div>
+        {/* Author/Director usando tu InputField dinámico */}
+        <InputField 
+          label={formData.type === 'BOOK' ? 'Author' : 'Director'}
+          name="authorOrDirector"
+          value={formData.authorOrDirector}
+          onChange={handleChange}
+          placeholder={formData.type === 'BOOK' ? 'Author name' : 'Director name'}
+        />
 
         {/* Rating */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Rating (1-5)</label>
-          <input 
-            type="number" 
-            name="rating"
-            min="1" 
-            max="5"
-            value={formData.rating}
-            onChange={handleChange}
-            className="w-full p-3 rounded-lg border border-gray-300" 
-          />
-        </div>
+        <InputField 
+          label="Rating (1-5)"
+          type="number"
+          name="rating"
+          min="1"
+          max="5"
+          value={formData.rating}
+          onChange={handleChange}
+        />
 
         {/* Review */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Your Review</label>
+          <label className="block text-sm font-semibold text-text-light dark:text-text-dark mb-2">Your Review</label>
           <textarea 
             name="review"
             value={formData.review}
             onChange={handleChange}
             rows={4}
-            className="w-full p-3 rounded-lg border border-gray-300 outline-none focus:border-blue-500"
+            className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark outline-none focus:ring-2 focus:ring-primary dark:focus:ring-gold transition-all"
             placeholder="Write what you thought..."
           ></textarea>
         </div>
 
         <div className="flex gap-4 pt-4">
           <Button type="submit" className="flex-1">Save Content</Button>
-          <Button type="button" variant="secondary" onClick={() => setFormData({title:'', type:'BOOK', authorOrDirector:'', rating:5, review:''})}>
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={() => setFormData({title:'', type:'BOOK', authorOrDirector:'', rating:5, review:''})}
+          >
             Clear
           </Button>
         </div>

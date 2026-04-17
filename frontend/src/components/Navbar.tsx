@@ -1,15 +1,32 @@
 import { Link } from 'react-router-dom';
+import { ThemeToggle } from './ThemeToggle'; 
 
 export const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-8 py-4 flex justify-between items-center">
-      <div className="text-xl font-bold text-blue-600">MyLibrary</div>
-      <div className="flex gap-8 items-center font-medium">
-        <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors">Feed</Link>
-        <Link to="/library" className="text-gray-600 hover:text-blue-600 transition-colors">My Library</Link>
-        <Link to="/add" className="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 shadow-md transition-all active:scale-95">
-          Add New
-        </Link>
+    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-bg-dark/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 px-8 py-4 flex justify-between items-center transition-colors">
+      {/* Logo: Color 1 (Primary) en claro y Color 5 (Gold) en oscuro */}
+      <div className="text-xl font-bold text-primary dark:text-gold tracking-tight">
+        MyLibrary
+      </div>
+      
+      <div className="flex gap-6 items-center">
+        <div className="flex gap-8 font-medium">
+          {/* Links: Hover con Color 1 en claro y Color 5 en oscuro */}
+          <Link 
+            to="/" 
+            className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-gold transition-colors"
+          >
+            Feed
+          </Link>
+          <Link 
+            to="/library" 
+            className="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-gold transition-colors"
+          >
+            My Library
+          </Link>
+        </div>
+        
+        <ThemeToggle />
       </div>
     </nav>
   );
