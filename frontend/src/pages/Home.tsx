@@ -1,8 +1,12 @@
 import { Button } from '../components/Button';
 import { MediaCard } from '../components/MediaCard';
 import { Link } from 'react-router-dom';
+import { useMedia } from '../context/MediaContext';
 
 export const Home = () => {
+  const { items, deleteItem } = useMedia();
+  const latestItems = items.slice(-3).reverse();
+
   return (
     <div className="space-y-12 pb-10">
       <section className="relative h-[450px] w-full overflow-hidden rounded-3xl shadow-2xl">
@@ -26,44 +30,27 @@ export const Home = () => {
           <p className="text-lg text-gray-200 max-w-md mb-8 leading-relaxed">
             All your favorite books, movies, and TV series organized in one beautiful space.
           </p>
-          <div className="flex gap-4">
-            <Link to="/library">
-              <Button className="px-8 py-3">
-                View My Library
-              </Button>
-            </Link>
-            <Link to="/add">
-              <Button variant="secondary" className="px-8 py-3 bg-white/10 text-white backdrop-blur-md hover:bg-white/20 border-none">
-                Add Review
-              </Button>
-            </Link>
-          </div>
         </div>
       </section>
 
       <section className="px-2">
         <h2 className="text-3xl font-bold text-text-light dark:text-text-dark mb-8">Recently Added</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <MediaCard 
-            title="The Lord of the Rings" 
-            type="BOOK" 
-            rating={5} 
-            authorOrDirector="J.R.R. Tolkien"
-          />
-          <MediaCard 
-            title="Pulp Fiction" 
-            type="MOVIE" 
-            rating={4} 
-            authorOrDirector="Quentin Tarantino"
-          />
-          <MediaCard 
-            title="The Bear" 
-            type="TV_SERIES" 
-            rating={5} 
-            authorOrDirector="Christopher Storer"
-          />
-        </div>
+        {items.length === 0 ? (
+          <div className="p-10 border-2 border-dashed border-gray-200 dark:border-gray-800 rounded-2xl text-center text-gray-400">
+            No updates yet. Go to "Add Content" to start your collection!
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {latestItems.map((item: any) => (
+              <MediaCard 
+                key={item.id} 
+                {...item} 
+                onDelete={() => deleteItem(item.id)} 
+              />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

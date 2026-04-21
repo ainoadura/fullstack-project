@@ -1,17 +1,38 @@
 import { Badge } from './Badge';
 
 interface MediaCardProps {
+  id: number;
   title: string;
   type: 'BOOK' | 'MOVIE' | 'TV_SERIES';
   rating: number;
   coverUrl?: string;
   authorOrDirector?: string;
+  onDelete: () => void; // Esta es la conexión para borrar
 }
 
-export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector }: MediaCardProps) => {
+export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, onDelete }: MediaCardProps) => {
   return (
-    /* bg-card-light y dark:bg-card-dark (Color 2 profundo) */
-    <div className="bg-card-light dark:bg-card-dark rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all">
+    <div className="group relative bg-card-light dark:bg-card-dark rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all">
+      
+      {/* BOTÓN DE BORRAR */}
+      <button 
+        className="absolute top-2 right-2 z-10 p-2 bg-bg-dark/50 backdrop-blur-md text-gray-300 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer hover:text-red-400 hover:bg-bg-dark shadow-lg border border-white/10"
+        title="Delete"
+        onClick={(e) => {
+          e.stopPropagation(); 
+          if(confirm(`¿Borrar "${title}"?`)) {
+            onDelete(); 
+          }
+        }}
+      >
+        <svg xmlns="http://w3.org" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+        </svg>
+      </button>
+
+      {/* Imagen */}
       <div className="h-48 bg-gray-200 dark:bg-secondary/50 overflow-hidden">
         {coverUrl ? (
           <img src={coverUrl} alt={title} className="w-full h-full object-cover" />
@@ -21,15 +42,14 @@ export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector }: M
           </div>
         )}
       </div>
+      
+      {/* Contenido */}
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
           <Badge type={type} />
-          {/* text-gold es tu Color 5 (Dorado) */}
           <span className="text-gold font-bold">★ {rating}</span>
         </div>
-        {/* text-text-light y dark:text-text-dark */}
         <h3 className="font-bold text-lg truncate text-text-light dark:text-text-dark">{title}</h3>
-        {/* text-muted-light y dark:text-muted (Color 4) */}
         <p className="text-sm text-gray-500 dark:text-muted">{authorOrDirector}</p>
       </div>
     </div>
