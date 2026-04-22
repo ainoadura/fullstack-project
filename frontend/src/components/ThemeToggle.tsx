@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useToggle } from '../hooks/useToggle';
 
 export const ThemeToggle = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, toggleDarkMode] = useToggle(false);
 
   useEffect(() => {
     if (darkMode) {
@@ -13,7 +14,7 @@ export const ThemeToggle = () => {
 
   return (
     <button
-      onClick={() => setDarkMode(!darkMode)}
+      onClick={toggleDarkMode}
       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer shadow-md border 
         ${darkMode 
           ? 'bg-card-light border-gray-200' // Fondo claro (usando tu variable de tarjeta)

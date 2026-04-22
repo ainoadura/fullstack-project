@@ -1,11 +1,10 @@
-export type MediaType = 'BOOK' | 'MOVIE' | 'TV_SERIES';
-
 export interface MediaItem {
-  id: string;
+  id: number;
   title: string;
-  type: MediaType;
+  type: 'BOOK' | 'MOVIE' | 'TV_SERIES';
+  authorOrDirector: string;
   rating: number;
-  authorOrDirector?: string; 
-  coverUrl?: string;
-  review?: string;
+  review: string;
+  list: string;
+  pagesOrDuration: string; 
 }

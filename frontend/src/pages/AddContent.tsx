@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { InputField } from '../components/InputField'; 
 import { useMedia } from '../context/MediaContext';
+import { useForm } from '../hooks/useForm';
 
 type MediaType = 'BOOK' | 'MOVIE' | 'TV_SERIES';
 
@@ -17,8 +19,13 @@ interface FormData {
 
 export const AddContent = () => {
   const { addItem } = useMedia();
-
-  const [formData, setFormData] = useState<FormData>({
+  const navigate = useNavigate();
+  const { 
+    values: formData, 
+    handleChange, 
+    setValues: setFormData, 
+    resetForm 
+  } = useForm<FormData>({
     title: '',
     type: 'BOOK',
     authorOrDirector: '',
@@ -32,13 +39,6 @@ export const AddContent = () => {
   const [isCreatingList, setIsCreatingList] = useState(false);
   const [newListName, setNewListName] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === 'rating' ? Number(value) : value
-    });
-  };
 
   const handleCreateList = () => {
     if (newListName.trim() && !myLists.includes(newListName)) {
@@ -52,9 +52,10 @@ export const AddContent = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addItem({ ...formData, id: Date.now() }); 
-    alert(`"${formData.title}" saved to Frame & Page!`);
-    setFormData({ title: '', type: 'BOOK', authorOrDirector: '', rating: 5, review: '', list: 'Favorites', pagesOrDuration: '' });
+    addItem({ ...formData, id: Date.now() }); // Ahora usamos 'formData' del hook
+    alert(`"${formData.title}" saved!`);
+    resetForm(); // Limpiamos el formulario con la función del hook
+    navigate('/library');
   };
 
   return (
@@ -106,24 +107,26 @@ export const AddContent = () => {
         </div>
 
         {/* Datos Principales */}
-        <InputField label="Title" name="title" value={formData.title} onChange={handleChange} placeholder="The Great Gatsby, Inception..." required />
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputField 
-            label={formData.type === 'BOOK' ? 'Author' : 'Director'} 
-            name="authorOrDirector" 
-            value={formData.authorOrDirector} 
-            onChange={handleChange} 
-            placeholder="Name..." 
-          />
-          <InputField 
-            label={formData.type === 'BOOK' ? 'Pages' : 'Duration (min)'} 
-            name="pagesOrDuration" 
-            value={formData.pagesOrDuration} 
-            onChange={handleChange} 
-            placeholder={formData.type === 'BOOK' ? '320' : '120'} 
-          />
-        </div>
+        <InputField 
+          label={formData.type === 'BOOK' ? 'Author' : 'Director'} 
+          name="authorOrDirector" 
+          value={formData.authorOrDirector} 
+          onChange={handleChange} 
+          placeholder="Name..." 
+        />
+        <InputField 
+          label={
+            formData.type === 'BOOK' ? 'Pages' : 
+            formData.type === 'TV_SERIES' ? 'Chapters' : 'Duration (min)'
+          } 
+          name="pagesOrDuration" 
+          value={formData.pagesOrDuration} 
+          onChange={handleChange} 
+          placeholder="Number..." 
+        />
+      </div>
+
 
         {/* Puntuación y Reseña */}
         <div>
@@ -149,6 +152,13 @@ export const AddContent = () => {
         <div className="flex gap-4 pt-2">
           <Button type="submit" className="flex-1">Save</Button>
         </div>
+        <InputField 
+          label="Title" 
+          name="title" 
+          value={formData.title} 
+          onChange={handleChange} 
+          required 
+        />  
       </form>
     </div>
   );

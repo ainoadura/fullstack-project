@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useToggle } from '../hooks/useToggle';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useState, useMemo, useCallback } from 'react';
 import { Button } from '../components/Button';
 import { MediaList } from '../components/MediaList'; 
 import { DetailModal } from '../components/DetailModal';
@@ -7,24 +9,25 @@ import { useMedia } from '../context/MediaContext';
 
 export const Library = () => {
   const { items, deleteItem } = useMedia(); 
-  
   const [activeFilter, setActiveFilter] = useState("All");
-  const [myLists, setMyLists] = useState(["All", "Favorites", "To Read", "To Watch"]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [myLists, setMyLists] = useLocalStorage('library-lists', ["All", "Favorites", "To Read", "To Watch"]);
+  const [isModalOpen, toggleModal] = useToggle(false);  
   const [newListName, setNewListName] = useState('');
 
-  const handleCreateList = (e: React.FormEvent) => {
+   const handleCreateList = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     if (newListName.trim() && !myLists.includes(newListName)) {
       setMyLists([...myLists, newListName]);
       setNewListName('');
-      setIsModalOpen(false);
+      toggleModal(); 
     }
-  };
+  }, [newListName, myLists, toggleModal]);
 
-  const filteredItems = activeFilter === "All" 
-    ? items 
-    : items.filter(item => item.list === activeFilter);
+  const filteredItems = useMemo(() => {
+    return activeFilter === "All" 
+      ? items 
+      : items.filter((item: any) => item.list === activeFilter);
+  }, [items, activeFilter]);
 
   return (
     <div className="p-8 space-y-8">
@@ -35,7 +38,7 @@ export const Library = () => {
           <p className="text-muted-light dark:text-muted text-sm italic">Manage and organize your media archive</p>
         </div>
         
-        <Button variant="primary" onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 text-sm shadow-md">
+        <Button variant="primary" onClick={toggleModal} className="flex items-center gap-2 text-sm shadow-md">
           <svg xmlns="http://w3.org" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"></line>
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -86,7 +89,7 @@ export const Library = () => {
         <MediaList items={filteredItems} onDelete={deleteItem} />
       </div>
 
-      <DetailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New List">
+      <DetailModal isOpen={isModalOpen} onClose={toggleModal} title="New List">
         <form onSubmit={handleCreateList} className="space-y-4">
           <InputField 
             label="Name of your list" 

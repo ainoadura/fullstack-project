@@ -7,10 +7,11 @@ interface MediaCardProps {
   rating: number;
   coverUrl?: string;
   authorOrDirector?: string;
+  pagesOrDuration?: string;
   onDelete: () => void; // Esta es la conexión para borrar
 }
 
-export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, onDelete }: MediaCardProps) => {
+export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, pagesOrDuration, onDelete }: MediaCardProps) => {
   return (
     <div className="group relative bg-card-light dark:bg-card-dark rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all">
       
@@ -51,6 +52,12 @@ export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, onD
         </div>
         <h3 className="font-bold text-lg truncate text-text-light dark:text-text-dark">{title}</h3>
         <p className="text-sm text-gray-500 dark:text-muted">{authorOrDirector}</p>
+
+        {pagesOrDuration && (
+          <p className="text-xs text-muted-light dark:text-muted/60 mt-1 italic">
+            {type === 'BOOK' ? `${pagesOrDuration} pages` : `${pagesOrDuration} min`}
+          </p>
+        )}
       </div>
     </div>
   );
