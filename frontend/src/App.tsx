@@ -4,6 +4,7 @@ import { Home } from './pages/Home'
 import { Library } from './pages/Library'     
 import { AddContent } from './pages/AddContent' 
 import { MediaProvider } from './context/MediaContext';
+import { NotFound } from './pages/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/library" element={<Library />} />
           <Route path="/add" element={<AddContent />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
     </MediaProvider>
