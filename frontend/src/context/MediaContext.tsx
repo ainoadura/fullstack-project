@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface MediaItem {
   id: number;
@@ -7,6 +7,7 @@ interface MediaItem {
   rating: number;
   authorOrDirector: string;
   list: string;
+  pagesOrDuration?: string;
   review?: string;
 }
 
@@ -19,7 +20,14 @@ interface MediaContextType {
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
 
 export const MediaProvider = ({ children }: { children: React.ReactNode }) => {
-  const [items, setItems] = useState<MediaItem[]>([]); // Empezamos vacío
+  const [items, setItems] = useState<MediaItem[]>(() => {
+    const savedItems = localStorage.getItem('frame_page_items');
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('frame_page_items', JSON.stringify(items));
+  }, [items]);
 
   const addItem = (item: MediaItem) => {
     setItems((prev) => [...prev, item]);
