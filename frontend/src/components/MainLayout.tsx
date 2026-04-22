@@ -43,7 +43,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       </Link>
 
       <footer className="py-10 text-center text-gray-400 dark:text-muted text-sm">
-        © 2026 Frame & Page - Fullstack Project
+        © 2026 Frame & Page - My Media Universe
       </footer>
     </div>
   );
