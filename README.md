@@ -1,33 +1,36 @@
 # 🎬 Frame & Page - My Media Universe
 
-Este es un proyecto profesional desarrollado con **React**, **TypeScript**, **Tailwind CSS v4** y una **API propia**. La aplicación permite catalogar y organizar libros, películas y series en un entorno privado y elegante.
+Este es un proyecto profesional **Fullstack** desarrollado con **React**, **Node.js** y **TypeScript**. La aplicación permite catalogar y organizar libros, películas y series en un entorno privado y elegante.
 
 ## 📁 Estructura de Documentación
 En este repositorio se documenta todo el ciclo de vida del desarrollo:
 
 *   [**Metodologías Ágiles**](./docs/agile.md): Investigación sobre Scrum, Kanban y la metodología elegida.
 *   [**Idea del Proyecto**](./docs/idea.md): Definición del problema, MVP y visión del producto.
-*   [**Custom Hooks**](./docs/hooks.md): Documentación técnica sobre la lógica reutilizable implementada.
+*   [**Arquitectura API**](./docs/api.md): Documentación técnica de los Endpoints y códigos HTTP.
+*   [**Custom Hooks**](./docs/hooks.md): Lógica reutilizable implementada en el Frontend.
+*   [**Context API**](./docs/context.md): Gestión del estado global y persistencia.
 
 ## 📋 Gestión del Proyecto
-El desarrollo y seguimiento de tareas se realiza mediante un tablero **Kanban** en Trello:
+El desarrollo se gestiona mediante un tablero **Kanban** en Trello:
 👉 [**Ver Tablero de Trello**](https://trello.com/b/bGED0kAU/fullstack-project)
 
-## 🚀 Funcionalidades Implementadas (Frontend)
-- **Gestión Global de Estado:** Sincronización entre el formulario de alta y la biblioteca mediante **Context API**.
-- **Sistema de Listas Dinámicas:** Creación, filtrado y eliminación de listas personalizadas con persistencia en **LocalStorage**.
-- **Diseño Adaptativo & Dark Mode:** Interfaz premium con paleta de colores personalizada (Vino/Oro) y soporte nativo para modo oscuro.
-- **Optimización de Rendimiento:** Uso de `useMemo` y `useCallback` para un filtrado de datos eficiente.
+## 🚀 Funcionalidades Implementadas
+### Frontend
+- **Gestión de Estado Global:** Sincronización mediante **Context API** y persistencia en LocalStorage.
+- **UI/UX Premium:** Diseño con Tailwind CSS v4, soporte nativo para **Dark Mode** y validación de formularios.
+- **Optimización:** Uso de `useMemo` y `useCallback` para un rendimiento eficiente.
+
+### Backend 
+- **Arquitectura por Capas:** Estructura profesional con Rutas, Controladores y Servicios.
+- **API RESTful:** Endpoints completos (GET, POST, PUT, DELETE) con códigos de estado HTTP estandarizados.
+- **Validación en Frontera:** Sistema de control de datos obligatorios antes del procesamiento.
 
 ## 🛠️ Tecnologías Principales
 - **Frontend:** React 18 + Vite + TypeScript.
-- **Estilos:** Tailwind CSS v4 (Custom @theme).
-- **Backend:** Node.js + Express (Próximamente).
-- **Base de Datos:** PostgreSQL (Próximamente).
+- **Backend:** Node.js + Express + TypeScript.
+- **Estilos:** Tailwind CSS v4.
 
 ## ⚙️ Instalación y Uso
-1. Clona el repositorio.
-2. `cd frontend`
-3. `npm install`
-4. `npm run dev`
-
+1. **Frontend:** `cd frontend && npm install && npm run dev`
+2. **Backend:** `cd server && npm install && npm run dev`
