@@ -38,3 +38,35 @@ Confirmación de que el ítem con el ID especificado ha sido eliminado.
 Respuesta al intentar borrar o editar un ID que ya no existe en el sistema.
 ![Error 404](./img/delete_404.png)
 
+---
+
+## 🛠️ Especificación OpenAPI (Swagger)
+Esta API sigue el estándar **OpenAPI 3.0**. A continuación se muestra el esquema del objeto `MediaItem` utilizado para el intercambio de datos:
+
+```json
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Frame & Page API",
+    "version": "1.0.0"
+  },
+  "components": {
+    "schemas": {
+      "MediaItem": {
+        "type": "object",
+        "required": ["title", "type"],
+        "properties": {
+          "id": { "type": "integer", "example": 1714820541234 },
+          "title": { "type": "string", "example": "Inception" },
+          "type": { "type": "string", "enum": ["BOOK", "MOVIE", "TV_SERIES"] },
+          "authorOrDirector": { "type": "string", "example": "Christopher Nolan" },
+          "rating": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "list": { "type": "string", "example": "Favorites" }
+        }
+      }
+    }
+  }
+}
+```
+
+*Nota: Esta especificación permite la generación automática de clientes y mocks, asegurando la interoperabilidad del sistema.*
