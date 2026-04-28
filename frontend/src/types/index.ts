@@ -1,10 +1,14 @@
+export type MediaType = 'BOOK' | 'MOVIE' | 'TV_SERIES';
+
 export interface MediaItem {
   id: number;
   title: string;
-  type: 'BOOK' | 'MOVIE' | 'TV_SERIES';
+  type: MediaType;
   authorOrDirector: string;
   rating: number;
-  review: string;
   list: string;
-  pagesOrDuration: string; 
+  pagesOrDuration?: string;
+  review?: string;
 }
+
+export type CreateMediaDTO = Omit<MediaItem, 'id'>; 

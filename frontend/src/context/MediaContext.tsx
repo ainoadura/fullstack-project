@@ -1,44 +1,69 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-
-interface MediaItem {
-  id: number;
-  title: string;
-  type: 'BOOK' | 'MOVIE' | 'TV_SERIES';
-  rating: number;
-  authorOrDirector: string;
-  list: string;
-  pagesOrDuration?: string;
-  review?: string;
-}
+import { mediaClient } from '../api/client';
+import type { MediaItem, CreateMediaDTO } from '../types';
 
 interface MediaContextType {
   items: MediaItem[];
-  addItem: (item: MediaItem) => void;
-  deleteItem: (id: number) => void;
+  isLoading: boolean;
+  error: string | null;
+  addItem: (item: CreateMediaDTO) => Promise<void>;
+  deleteItem: (id: number) => Promise<void>;
+  loadMedia: () => Promise<void>;
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
 
 export const MediaProvider = ({ children }: { children: React.ReactNode }) => {
-  const [items, setItems] = useState<MediaItem[]>(() => {
-    const savedItems = localStorage.getItem('frame_page_items');
-    return savedItems ? JSON.parse(savedItems) : [];
-  });
+  const [items, setItems] = useState<MediaItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    localStorage.setItem('frame_page_items', JSON.stringify(items));
-  }, [items]);
-
-  const addItem = (item: MediaItem) => {
-    setItems((prev) => [...prev, item]);
+  const loadMedia = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const data = await mediaClient.getAll();
+      setItems(data);
+    } catch (err) {
+      setError("Could not load your collection. Please check if the server is running.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const deleteItem = (id: number) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
+  useEffect(() => {
+    loadMedia();
+  }, []);
+
+  const addItem = async (newItem: CreateMediaDTO) => {
+    try {
+      const savedItem = await mediaClient.create(newItem);
+      setItems((prev) => [...prev, savedItem]);
+    } catch (error) {
+      console.error("Error adding media:", error);
+    }
+  };
+ 
+  const deleteItem = async (id: number) => {
+    try {
+      await mediaClient.delete(id);
+      setItems((prev) => prev.filter((i) => i.id !== id));
+    } catch (error) {
+      console.error("Error deleting media:", error);
+    }
+  };
+
+  const contextValue: MediaContextType = {
+    items,
+    isLoading,
+    error,
+    addItem,
+    deleteItem,
+    loadMedia
   };
 
   return (
-    <MediaContext.Provider value={{ items, addItem, deleteItem }}>
+    <MediaContext.Provider value={contextValue}>
       {children}
     </MediaContext.Provider>
   );
