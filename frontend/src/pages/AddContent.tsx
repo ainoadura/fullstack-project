@@ -50,18 +50,24 @@ export const AddContent = () => {
     }
   };
 
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // 1. Añadimos async
     e.preventDefault();
+    
     if (formData.title.trim().length < 3) {
       setError('The title must be at least 3 characters long.');
       return;
     }
-    setError(''); 
-    addItem({ ...formData, id: Date.now() }); 
-    alert(`"${formData.title}" saved!`);
-    resetForm(); 
-    navigate('/library');
+
+    try {
+      setError(''); 
+      await addItem(formData); 
+      
+      alert(`"${formData.title}" saved!`);
+      resetForm(); 
+      navigate('/library');
+    } catch (err) {
+      setError('Failed to save. Please check if the server is running.');
+    }
   };
 
   return (
