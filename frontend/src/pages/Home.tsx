@@ -1,5 +1,6 @@
 import { MediaCard } from '../components/MediaCard';
 import { useMedia } from '../context/MediaContext';
+import type { MediaItem } from '../types';
 
 export const Home = () => {
   const { items, deleteItem } = useMedia();
@@ -40,11 +41,12 @@ export const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestItems.map((item: any) => (
+            {latestItems.map((item: MediaItem) => (
               <MediaCard 
                 key={item.id} 
                 {...item} 
                 onDelete={() => deleteItem(item.id)} 
+                onSelect={() => {}}
               />
             ))}
           </div>

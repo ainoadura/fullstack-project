@@ -1,26 +1,33 @@
-let mediaItems: any[] = [];
+interface MediaItem {
+  id: number;
+  title: string;
+  type: string;
+  authorOrDirector: string;
+  rating: number;
+  [key: string]: any;
+}
 
-export const fetchAllItems = () => {
+let mediaItems: MediaItem[] = [];
+
+export const fetchAllItems = (): MediaItem[] => {
   return mediaItems;
 };
 
-export const saveItem = (item: any) => {
-  const newItem = { ...item, id: Date.now() };
+export const saveItem = (item: Omit<MediaItem, 'id'>): MediaItem => {
+  const newItem: MediaItem = { ...item, id: Date.now() } as MediaItem;
   mediaItems.push(newItem);
   return newItem;
 };
 
-export const updateItem = (id: number, data: any) => {
+export const updateItem = (id: number, data: Partial<MediaItem>): MediaItem | null => {
   const index = mediaItems.findIndex(item => item.id === id);
   if (index === -1) return null;
 
-  // Actualizamos el ítem
   mediaItems[index] = { ...mediaItems[index], ...data, id }; 
-  // ¡IMPORTANTE!: Hay que devolver el ítem actualizado
   return mediaItems[index]; 
 };
 
-export const removeItem = (id: number) => {
+export const removeItem = (id: number): boolean => {
   const initialLength = mediaItems.length;
   mediaItems = mediaItems.filter(item => item.id !== id);
   return mediaItems.length < initialLength;
