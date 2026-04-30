@@ -23,6 +23,3 @@ El frontend se conecta a la API mediante **variables de entorno**:
 
 ## 🚦 Consideraciones del Plan Gratuito
 Dado el uso del plan *Free* de Render, el servidor entra en estado de hibernación tras periodos de inactividad. Se ha implementado un sistema de **feedback visual (Spinners)** en el frontend para gestionar la latencia de "despertado" (aproximadamente 30-50 segundos) y garantizar una buena experiencia de usuario.
-
----
-*Documentación finalizada para el Punto 14 del proyecto.*

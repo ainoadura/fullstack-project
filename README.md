@@ -27,6 +27,7 @@ En este repositorio se documenta detalladamente todo el ciclo de vida del desarr
 *   [**Enrutamiento (Routing)**](./docs/routing.md): Estructura de navegación y gestión de páginas 404.
 *   [**Formularios e Interacción**](./docs/forms.md): Gestión de inputs controlados y validación de datos.
 *   [**Despliegue**](./docs/deployment.md): Proceso de puesta en producción en Vercel y Render.
+*   [**Reflexión Final**](./docs/retrospective.md): Aprendizajes, retos y uso de IA durante el proyecto.
 
 ## 📋 Gestión del Proyecto
 El desarrollo se gestiona mediante un tablero **Kanban** en Trello:
