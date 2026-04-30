@@ -1,6 +1,7 @@
 import type { MediaItem, CreateMediaDTO } from '../types';
 
-const API_URL = 'http://localhost:5000/api/media';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/media';
+
 
 export const mediaClient = {
   // GET - Obtener todos
