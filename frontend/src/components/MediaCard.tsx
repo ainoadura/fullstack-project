@@ -21,7 +21,7 @@ export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, pag
       
       {/* BOTÓN DE BORRAR */}
       <button 
-        className="absolute top-2 right-2 z-10 p-2 bg-bg-dark/50 backdrop-blur-md text-gray-300 rounded-full opacity-0 group-hover:opacity-100 transition-all cursor-pointer hover:text-red-400 hover:bg-bg-dark shadow-lg border border-white/10"
+        className="absolute top-2 right-2 z-10 p-2 bg-bg-dark/50 backdrop-blur-md text-gray-300 rounded-full sm:opacity-0 group-hover:opacity-100 transition-all cursor-pointer hover:text-red-400 hover:bg-bg-dark shadow-lg border border-white/10"
         title="Delete"
         onClick={(e) => {
           e.stopPropagation(); 

@@ -3,7 +3,6 @@ import { ThemeToggle } from './ThemeToggle';
 import { useScroll } from '../hooks/useScroll';
 
 export const Navbar = () => {
-  // Usamos el hook que creamos para saber si el usuario ha bajado la página
   const isScrolled = useScroll(40); 
 
   return (
@@ -27,11 +26,30 @@ export const Navbar = () => {
         </Link>
 
         {/* ENLACES */}
-        <div className={`flex gap-10 items-center font-bold text-xs uppercase tracking-widest ${
-          isScrolled ? 'text-white' : 'text-white drop-shadow-md'
+        <div className={`flex gap-10 items-center font-bold text-xs uppercase tracking-widest transition-colors duration-500 ${
+          isScrolled ? 'text-primary/80' : 'text-gold'
         }`}>
-          <Link to="/" className="hover:text-gold transition-colors">Home</Link>
-          <Link to="/library" className="hover:text-gold transition-colors">Library</Link>
+          <Link 
+            to="/" 
+            className={`transition-colors ${
+              isScrolled 
+                ? 'hover:text-primary text-primary' // Al bajar: Letras vino, y más oscuras al pasar el ratón
+                : 'hover:text-white text-gold'      // Arriba: Letras doradas, blancas al pasar el ratón
+            }`}
+          >
+            Home
+          </Link>
+          
+          <Link 
+            to="/library" 
+            className={`transition-colors ${
+              isScrolled 
+                ? 'hover:text-primary text-primary' 
+                : 'hover:text-white text-gold'
+            }`}
+          >
+            Library
+          </Link>
           <ThemeToggle />
         </div>
       </div>
