@@ -12,7 +12,7 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
     <div className="min-h-screen bg-bg-light dark:bg-bg-dark text-text-light dark:text-text-dark transition-colors duration-300">
       <Navbar />
       
-      <main className="max-w-6xl mx-auto p-6 pb-24">
+      <main className="max-w-6xl mx-auto p-6 pt-28 pb-24">
         {children}
       </main>
 

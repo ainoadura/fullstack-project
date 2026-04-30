@@ -9,8 +9,8 @@ export const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-gold shadow-2xl py-3 border-b border-primary/20' // AL BAJAR: Fondo Dorado
-        : 'bg-primary py-6 shadow-lg' // ARRIBA: Fondo Vino
+        ? 'bg-gold shadow-2xl py-1.5 border-b border-primary/20' // AL BAJAR: Fondo Dorado
+        : 'bg-primary py-3 shadow-lg' // ARRIBA: Fondo Vino
     }`}>
       <div className="max-w-[1400px] mx-auto px-10 flex justify-between items-center">
         
