@@ -1,8 +1,14 @@
 import type { MediaItem } from '../types';
 import { MediaCard } from './MediaCard';
-import { motion, AnimatePresence } from 'framer-motion'; // 1. Importamos motion
+import { motion, AnimatePresence } from 'framer-motion'; 
 
-export const MediaList = ({ items, onDelete }: { items: MediaItem[], onDelete: (id: number) => void }) => {
+interface MediaListProps {
+  items: MediaItem[];
+  onDelete: (id: number) => void;
+  onSelect: (item: MediaItem) => void; 
+}
+
+export const MediaList = ({ items, onDelete, onSelect }: MediaListProps) => {
   if (items.length === 0) {
     return <div className="text-center p-10 dark:text-white italic opacity-50">Empty library.</div>;
   }
@@ -24,6 +30,7 @@ export const MediaList = ({ items, onDelete }: { items: MediaItem[], onDelete: (
             <MediaCard 
               {...item} 
               onDelete={() => onDelete(item.id)} 
+              onSelect={() => onSelect(item)}
             />
           </motion.div>
         ))}

@@ -8,12 +8,16 @@ interface MediaCardProps {
   coverUrl?: string;
   authorOrDirector?: string;
   pagesOrDuration?: string;
-  onDelete: () => void; // Esta es la conexión para borrar
+  onDelete: () => void;
+  onSelect: () => void; 
 }
 
-export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, pagesOrDuration, onDelete }: MediaCardProps) => {
+export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, pagesOrDuration, onDelete, onSelect }: MediaCardProps) => {
   return (
-    <div className="group relative bg-card-light dark:bg-card-dark rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all">
+    <div 
+      onClick={onSelect} 
+      className="group relative bg-card-light dark:bg-card-dark rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all cursor-pointer"
+    >
       
       {/* BOTÓN DE BORRAR */}
       <button 
@@ -62,3 +66,4 @@ export const MediaCard = ({ title, type, rating, coverUrl, authorOrDirector, pag
     </div>
   );
 };
+

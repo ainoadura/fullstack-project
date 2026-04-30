@@ -3,9 +3,11 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useState, useMemo, useCallback } from 'react';
 import { Button } from '../components/Button';
 import { MediaList } from '../components/MediaList'; 
-import { DetailModal } from '../components/DetailModal';
+import { DetailModal } from '../components/DetailModal'; 
+import { MediaDetailModal } from '../components/MediaDetailModal'; 
 import { InputField } from '../components/InputField';
 import { useMedia } from '../context/MediaContext';
+import type { MediaItem } from '../types';
 
 export const Library = () => {
   const { items, isLoading, error, loadMedia, deleteItem } = useMedia(); 
@@ -13,6 +15,8 @@ export const Library = () => {
   const [myLists, setMyLists] = useLocalStorage('library-lists', ["All", "Favorites", "To Read", "To Watch"]);
   const [isModalOpen, toggleModal] = useToggle(false);  
   const [newListName, setNewListName] = useState('');
+
+  const [selectedItem, setSelectedItem] = useState<MediaItem | null>(null);
 
   const handleCreateList = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +30,7 @@ export const Library = () => {
   const filteredItems = useMemo(() => {
     return activeFilter === "All" 
       ? items 
-      : items.filter((item: any) => item.list === activeFilter);
+      : items.filter((item: MediaItem) => item.list === activeFilter); 
   }, [items, activeFilter]);
 
   return (
@@ -104,7 +108,7 @@ export const Library = () => {
               )}
             </div>
 
-            <MediaList items={filteredItems} onDelete={deleteItem} />
+            <MediaList items={filteredItems} onDelete={deleteItem} onSelect={setSelectedItem} />
           </>
         )}
       </div>
@@ -121,6 +125,8 @@ export const Library = () => {
           <Button type="submit" className="w-full">Create</Button>
         </form>
       </DetailModal>
+
+       <MediaDetailModal item={selectedItem} onClose={() => setSelectedItem(null)} />
     </div>
   );
 };
