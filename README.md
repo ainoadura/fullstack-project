@@ -2,6 +2,15 @@
 
 Este es un proyecto profesional **Fullstack** desarrollado con **React**, **Node.js** y **TypeScript**. La aplicación permite catalogar y organizar libros, películas y series en un entorno privado y elegante.
 
+## 🌐 Enlaces del Proyecto (Live Demo)
+Puedes acceder a la aplicación y a su API en producción a través de los siguientes enlaces:
+
+*   🚀 **Aplicación (Frontend):** [https://vercel.app](https://frame-page-fullstack-project.vercel.app/)
+*   📡 **API REST (Backend):** [https://onrender.com](https://frame-page-api.onrender.com/api/media)
+
+> **Nota sobre el rendimiento:** Al utilizar el plan gratuito de Render, el servidor entra en reposo tras periodos de inactividad. La primera petición a la biblioteca puede demorar entre 30 y 50 segundos mientras el servicio se activa de nuevo.
+
+
 ## 📁 Estructura de Documentación
 En este repositorio se documenta detalladamente todo el ciclo de vida del desarrollo:
 
@@ -17,6 +26,7 @@ En este repositorio se documenta detalladamente todo el ciclo de vida del desarr
 *   [**Custom Hooks**](./docs/hooks.md): Documentación de la lógica reutilizable (`useForm`, `useToggle`, `useLocalStorage`).
 *   [**Enrutamiento (Routing)**](./docs/routing.md): Estructura de navegación y gestión de páginas 404.
 *   [**Formularios e Interacción**](./docs/forms.md): Gestión de inputs controlados y validación de datos.
+*   [**Despliegue**](./docs/deployment.md): Proceso de puesta en producción en Vercel y Render.
 
 ## 📋 Gestión del Proyecto
 El desarrollo se gestiona mediante un tablero **Kanban** en Trello:
