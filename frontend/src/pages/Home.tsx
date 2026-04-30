@@ -1,6 +1,4 @@
-import { Button } from '../components/Button';
 import { MediaCard } from '../components/MediaCard';
-import { Link } from 'react-router-dom';
 import { useMedia } from '../context/MediaContext';
 
 export const Home = () => {
